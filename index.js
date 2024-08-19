@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Trip, Route, Stop, ScheduleV2Timetable } from './models/index.js';
 import { Convert, Utils } from './helpers/index.js';
-const zlib = require('zlib');
+import zlib from 'zlib';
 
 import momentTimezone from 'moment-timezone';
 import * as geolib from "geolib";
