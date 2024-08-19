@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { Trip, Route, Stop, ScheduleV2Timetable } from './models/index.js';
 import { Convert, Utils } from './helpers/index.js';
+const zlib = require('zlib');
 
 import momentTimezone from 'moment-timezone';
 import * as geolib from "geolib";
@@ -1191,8 +1192,15 @@ export const handler = async (event) => {
 
   })
   returnData.exportData = exportData
+
+  const jsonResponse = JSON.stringify({ returnData, exportData }).toString('base64');
+    
+  // Compress the JSON string
+  const compressedData = zlib.gzipSync(jsonResponse);
+
+
   return {
     statusCode: 200,
-    body: { returnData,exportData }
+    body: compressedData
   };
 }
